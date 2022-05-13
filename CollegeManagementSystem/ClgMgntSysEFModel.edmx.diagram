@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8b0a6417ad54f6c909d7005c2cbd453" Name="Diagram1">
+        <EntityTypeShape EntityType="CollegeMgntSystemModel.login" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeMgntSystemModel.staff_designations" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeMgntSystemModel.staff_info" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeMgntSystemModel.student_batches" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeMgntSystemModel.students_info" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="CollegeMgntSystemModel.FK__staff_inf__desig__0CBAE877" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeMgntSystemModel.FK__students___facul__117F9D94" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeMgntSystemModel.FK__students___batch__1273C1CD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

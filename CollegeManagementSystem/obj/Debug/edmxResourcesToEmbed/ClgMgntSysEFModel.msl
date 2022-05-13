@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CollegeMgntSystemModelStoreContainer" CdmEntityContainer="CollegeMgntSystemEntities1">
+    <EntitySetMapping Name="logins">
+      <EntityTypeMapping TypeName="CollegeMgntSystemModel.login">
+        <MappingFragment StoreEntitySet="login">
+          <ScalarProperty Name="login_id" ColumnName="login_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="staff_designations">
+      <EntityTypeMapping TypeName="CollegeMgntSystemModel.staff_designations">
+        <MappingFragment StoreEntitySet="staff_designations">
+          <ScalarProperty Name="designation_id" ColumnName="designation_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="staff_info">
+      <EntityTypeMapping TypeName="CollegeMgntSystemModel.staff_info">
+        <MappingFragment StoreEntitySet="staff_info">
+          <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+          <ScalarProperty Name="join_date" ColumnName="join_date" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="mobile_1" ColumnName="mobile_1" />
+          <ScalarProperty Name="mobile_2" ColumnName="mobile_2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="qualification" ColumnName="qualification" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="student_batches">
+      <EntityTypeMapping TypeName="CollegeMgntSystemModel.student_batches">
+        <MappingFragment StoreEntitySet="student_batches">
+          <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="students_info">
+      <EntityTypeMapping TypeName="CollegeMgntSystemModel.students_info">
+        <MappingFragment StoreEntitySet="students_info">
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="reg_no" ColumnName="reg_no" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="faculty" ColumnName="faculty" />
+          <ScalarProperty Name="academic_status" ColumnName="academic_status" />
+          <ScalarProperty Name="batch" ColumnName="batch" />
+          <ScalarProperty Name="blood_group" ColumnName="blood_group" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="student_status" ColumnName="student_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_AddStaffDetails" FunctionName="CollegeMgntSystemModel.Store.USP_AddStaffDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_AddStaffDetails_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_AddStudentsDetails" FunctionName="CollegeMgntSystemModel.Store.USP_AddStudentsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_AddStudentsDetails_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_DeleteStaffDetails" FunctionName="CollegeMgntSystemModel.Store.USP_DeleteStaffDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_DeleteStaffDetails_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_DeleteStudentsDetails" FunctionName="CollegeMgntSystemModel.Store.USP_DeleteStudentsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_DeleteStudentsDetails_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_GetStaffDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_GetStaffDetailss">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_GetStaffDetailss_Result">
+          <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+          <ScalarProperty Name="join_date" ColumnName="join_date" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="mobile_1" ColumnName="mobile_1" />
+          <ScalarProperty Name="mobile_2" ColumnName="mobile_2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="qualification" ColumnName="qualification" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_GetStudensDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_GetStudensDetailss">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_GetStudensDetailss_Result">
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="reg_no" ColumnName="reg_no" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Faculty_name" ColumnName="Faculty_name" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="blood_group" ColumnName="blood_group" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="Student_Status" ColumnName="Student_Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_UpdateStaffDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_UpdateStaffDetailss">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_UpdateStaffDetailss_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USP_UpdateStudentsDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_UpdateStudentsDetailss">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_UpdateStudentsDetailss_Result">
+          <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+          <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+          <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

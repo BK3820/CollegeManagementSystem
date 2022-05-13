@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CollegeMgntSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login_id" />
+          </Key>
+          <Property Name="login_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="staff_designations">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="staff_info">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="join_date" Type="date" Nullable="false" />
+          <Property Name="designation" Type="int" />
+          <Property Name="first_name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="middle_name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="mobile_1" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="mobile_2" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="qualification" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="student_batches">
+          <Key>
+            <PropertyRef Name="batch_id" />
+          </Key>
+          <Property Name="batch_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="students_info">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reg_no" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="faculty" Type="int" />
+          <Property Name="academic_status" Type="int" />
+          <Property Name="batch" Type="int" />
+          <Property Name="blood_group" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="student_status" Type="int" />
+        </EntityType>
+        <Association Name="FK__staff_inf__desig__0CBAE877">
+          <End Role="staff_designations" Type="Self.staff_designations" Multiplicity="0..1" />
+          <End Role="staff_info" Type="Self.staff_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff_designations">
+              <PropertyRef Name="designation_id" />
+            </Principal>
+            <Dependent Role="staff_info">
+              <PropertyRef Name="designation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__students___batch__1273C1CD">
+          <End Role="student_batches" Type="Self.student_batches" Multiplicity="0..1" />
+          <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student_batches">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="students_info">
+              <PropertyRef Name="batch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__students___facul__117F9D94">
+          <End Role="staff_info" Type="Self.staff_info" Multiplicity="0..1" />
+          <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff_info">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="students_info">
+              <PropertyRef Name="faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="USP_AddStaffDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="join_date" Type="date" Mode="In" />
+          <Parameter Name="designnation" Type="int" Mode="In" />
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="middle_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="gender" Type="varchar" Mode="In" />
+          <Parameter Name="mobile_1" Type="varchar" Mode="In" />
+          <Parameter Name="moible_2" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="qualification" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_AddStudentsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reg_no" Type="varchar" Mode="In" />
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="date_of_birth" Type="date" Mode="In" />
+          <Parameter Name="gender" Type="varchar" Mode="In" />
+          <Parameter Name="faculty" Type="int" Mode="In" />
+          <Parameter Name="academic_status" Type="int" Mode="In" />
+          <Parameter Name="batch" Type="int" Mode="In" />
+          <Parameter Name="blood_group" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="student_status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_DeleteStaffDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="staff_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_DeleteStudentsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="student_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_GetStaffDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_GetStudensDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_UpdateStaffDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="staff_id" Type="int" Mode="In" />
+          <Parameter Name="join_date" Type="date" Mode="In" />
+          <Parameter Name="designnation" Type="int" Mode="In" />
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="middle_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="gender" Type="varchar" Mode="In" />
+          <Parameter Name="mobile_1" Type="varchar" Mode="In" />
+          <Parameter Name="moible_2" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="qualification" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_UpdateStudentsDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="student_id" Type="int" Mode="In" />
+          <Parameter Name="reg_no" Type="varchar" Mode="In" />
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="date_of_birth" Type="date" Mode="In" />
+          <Parameter Name="gender" Type="varchar" Mode="In" />
+          <Parameter Name="faculty" Type="int" Mode="In" />
+          <Parameter Name="academic_status" Type="int" Mode="In" />
+          <Parameter Name="batch" Type="int" Mode="In" />
+          <Parameter Name="blood_group" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="student_status" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CollegeMgntSystemModelStoreContainer">
+          <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="staff_designations" EntityType="Self.staff_designations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="staff_info" EntityType="Self.staff_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student_batches" EntityType="Self.student_batches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students_info" EntityType="Self.students_info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__staff_inf__desig__0CBAE877" Association="Self.FK__staff_inf__desig__0CBAE877">
+            <End Role="staff_designations" EntitySet="staff_designations" />
+            <End Role="staff_info" EntitySet="staff_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__students___batch__1273C1CD" Association="Self.FK__students___batch__1273C1CD">
+            <End Role="student_batches" EntitySet="student_batches" />
+            <End Role="students_info" EntitySet="students_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__students___facul__117F9D94" Association="Self.FK__students___facul__117F9D94">
+            <End Role="staff_info" EntitySet="staff_info" />
+            <End Role="students_info" EntitySet="students_info" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollegeMgntSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login_id" />
+          </Key>
+          <Property Name="login_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="staff_designations">
+          <Key>
+            <PropertyRef Name="designation_id" />
+          </Key>
+          <Property Name="designation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="staff_info" Relationship="Self.FK__staff_inf__desig__0CBAE877" FromRole="staff_designations" ToRole="staff_info" />
+        </EntityType>
+        <EntityType Name="staff_info">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="join_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="designation" Type="Int32" />
+          <Property Name="first_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="middle_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mobile_1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mobile_2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="staff_designations" Relationship="Self.FK__staff_inf__desig__0CBAE877" FromRole="staff_info" ToRole="staff_designations" />
+          <NavigationProperty Name="students_info" Relationship="Self.FK__students___facul__117F9D94" FromRole="staff_info" ToRole="students_info" />
+        </EntityType>
+        <EntityType Name="student_batches">
+          <Key>
+            <PropertyRef Name="batch_id" />
+          </Key>
+          <Property Name="batch_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="students_info" Relationship="Self.FK__students___batch__1273C1CD" FromRole="student_batches" ToRole="students_info" />
+        </EntityType>
+        <EntityType Name="students_info">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_no" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="faculty" Type="Int32" />
+          <Property Name="academic_status" Type="Int32" />
+          <Property Name="batch" Type="Int32" />
+          <Property Name="blood_group" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="student_status" Type="Int32" />
+          <NavigationProperty Name="staff_info" Relationship="Self.FK__students___facul__117F9D94" FromRole="students_info" ToRole="staff_info" />
+          <NavigationProperty Name="student_batches" Relationship="Self.FK__students___batch__1273C1CD" FromRole="students_info" ToRole="student_batches" />
+        </EntityType>
+        <Association Name="FK__staff_inf__desig__0CBAE877">
+          <End Role="staff_designations" Type="Self.staff_designations" Multiplicity="0..1" />
+          <End Role="staff_info" Type="Self.staff_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff_designations">
+              <PropertyRef Name="designation_id" />
+            </Principal>
+            <Dependent Role="staff_info">
+              <PropertyRef Name="designation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__students___facul__117F9D94">
+          <End Role="staff_info" Type="Self.staff_info" Multiplicity="0..1" />
+          <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff_info">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="students_info">
+              <PropertyRef Name="faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__students___batch__1273C1CD">
+          <End Role="student_batches" Type="Self.student_batches" Multiplicity="0..1" />
+          <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student_batches">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="students_info">
+              <PropertyRef Name="batch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CollegeMgntSystemEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="logins" EntityType="Self.login" />
+          <EntitySet Name="staff_designations" EntityType="Self.staff_designations" />
+          <EntitySet Name="staff_info" EntityType="Self.staff_info" />
+          <EntitySet Name="student_batches" EntityType="Self.student_batches" />
+          <EntitySet Name="students_info" EntityType="Self.students_info" />
+          <AssociationSet Name="FK__staff_inf__desig__0CBAE877" Association="Self.FK__staff_inf__desig__0CBAE877">
+            <End Role="staff_designations" EntitySet="staff_designations" />
+            <End Role="staff_info" EntitySet="staff_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__students___facul__117F9D94" Association="Self.FK__students___facul__117F9D94">
+            <End Role="staff_info" EntitySet="staff_info" />
+            <End Role="students_info" EntitySet="students_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__students___batch__1273C1CD" Association="Self.FK__students___batch__1273C1CD">
+            <End Role="student_batches" EntitySet="student_batches" />
+            <End Role="students_info" EntitySet="students_info" />
+          </AssociationSet>
+          <FunctionImport Name="USP_AddStaffDetails" ReturnType="Collection(CollegeMgntSystemModel.USP_AddStaffDetails_Result)">
+            <Parameter Name="join_date" Mode="In" Type="DateTime" />
+            <Parameter Name="designnation" Mode="In" Type="Int32" />
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="middle_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="mobile_1" Mode="In" Type="String" />
+            <Parameter Name="moible_2" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="qualification" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_AddStudentsDetails" ReturnType="Collection(CollegeMgntSystemModel.USP_AddStudentsDetails_Result)">
+            <Parameter Name="reg_no" Mode="In" Type="String" />
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="date_of_birth" Mode="In" Type="DateTime" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="faculty" Mode="In" Type="Int32" />
+            <Parameter Name="academic_status" Mode="In" Type="Int32" />
+            <Parameter Name="batch" Mode="In" Type="Int32" />
+            <Parameter Name="blood_group" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="student_status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_DeleteStaffDetails" ReturnType="Collection(CollegeMgntSystemModel.USP_DeleteStaffDetails_Result)">
+            <Parameter Name="staff_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_DeleteStudentsDetails" ReturnType="Collection(CollegeMgntSystemModel.USP_DeleteStudentsDetails_Result)">
+            <Parameter Name="student_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_GetStaffDetailss" ReturnType="Collection(CollegeMgntSystemModel.USP_GetStaffDetailss_Result)" />
+          <FunctionImport Name="USP_GetStudensDetailss" ReturnType="Collection(CollegeMgntSystemModel.USP_GetStudensDetailss_Result)" />
+          <FunctionImport Name="USP_UpdateStaffDetailss" ReturnType="Collection(CollegeMgntSystemModel.USP_UpdateStaffDetailss_Result)">
+            <Parameter Name="staff_id" Mode="In" Type="Int32" />
+            <Parameter Name="join_date" Mode="In" Type="DateTime" />
+            <Parameter Name="designnation" Mode="In" Type="Int32" />
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="middle_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="mobile_1" Mode="In" Type="String" />
+            <Parameter Name="moible_2" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="qualification" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_UpdateStudentsDetailss" ReturnType="Collection(CollegeMgntSystemModel.USP_UpdateStudentsDetailss_Result)">
+            <Parameter Name="student_id" Mode="In" Type="Int32" />
+            <Parameter Name="reg_no" Mode="In" Type="String" />
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="date_of_birth" Mode="In" Type="DateTime" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="faculty" Mode="In" Type="Int32" />
+            <Parameter Name="academic_status" Mode="In" Type="Int32" />
+            <Parameter Name="batch" Mode="In" Type="Int32" />
+            <Parameter Name="blood_group" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="student_status" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="USP_AddStaffDetails_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_AddStudentsDetails_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_DeleteStaffDetails_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_DeleteStudentsDetails_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_GetStaffDetailss_Result">
+          <Property Type="Int32" Name="staff_id" Nullable="false" />
+          <Property Type="DateTime" Name="join_date" Nullable="false" />
+          <Property Type="String" Name="designation" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="first_name" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middle_name" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="last_name" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="mobile_1" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="mobile_2" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="qualification" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="USP_GetStudensDetailss_Result">
+          <Property Type="Int32" Name="student_id" Nullable="false" />
+          <Property Type="String" Name="reg_no" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="first_name" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="last_name" Nullable="false" MaxLength="25" />
+          <Property Type="DateTime" Name="date_of_birth" Nullable="false" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Faculty_name" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="blood_group" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Student_Status" Nullable="true" MaxLength="7" />
+        </ComplexType>
+        <ComplexType Name="USP_UpdateStaffDetailss_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_UpdateStudentsDetailss_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CollegeMgntSystemModelStoreContainer" CdmEntityContainer="CollegeMgntSystemEntities1">
+          <EntitySetMapping Name="logins">
+            <EntityTypeMapping TypeName="CollegeMgntSystemModel.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="login_id" ColumnName="login_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="staff_designations">
+            <EntityTypeMapping TypeName="CollegeMgntSystemModel.staff_designations">
+              <MappingFragment StoreEntitySet="staff_designations">
+                <ScalarProperty Name="designation_id" ColumnName="designation_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="staff_info">
+            <EntityTypeMapping TypeName="CollegeMgntSystemModel.staff_info">
+              <MappingFragment StoreEntitySet="staff_info">
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="mobile_1" ColumnName="mobile_1" />
+                <ScalarProperty Name="mobile_2" ColumnName="mobile_2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="student_batches">
+            <EntityTypeMapping TypeName="CollegeMgntSystemModel.student_batches">
+              <MappingFragment StoreEntitySet="student_batches">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students_info">
+            <EntityTypeMapping TypeName="CollegeMgntSystemModel.students_info">
+              <MappingFragment StoreEntitySet="students_info">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="reg_no" ColumnName="reg_no" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="faculty" ColumnName="faculty" />
+                <ScalarProperty Name="academic_status" ColumnName="academic_status" />
+                <ScalarProperty Name="batch" ColumnName="batch" />
+                <ScalarProperty Name="blood_group" ColumnName="blood_group" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="student_status" ColumnName="student_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_AddStaffDetails" FunctionName="CollegeMgntSystemModel.Store.USP_AddStaffDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_AddStaffDetails_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_AddStudentsDetails" FunctionName="CollegeMgntSystemModel.Store.USP_AddStudentsDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_AddStudentsDetails_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_DeleteStaffDetails" FunctionName="CollegeMgntSystemModel.Store.USP_DeleteStaffDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_DeleteStaffDetails_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_DeleteStudentsDetails" FunctionName="CollegeMgntSystemModel.Store.USP_DeleteStudentsDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_DeleteStudentsDetails_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetStaffDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_GetStaffDetailss">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_GetStaffDetailss_Result">
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="mobile_1" ColumnName="mobile_1" />
+                <ScalarProperty Name="mobile_2" ColumnName="mobile_2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetStudensDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_GetStudensDetailss">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_GetStudensDetailss_Result">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="reg_no" ColumnName="reg_no" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Faculty_name" ColumnName="Faculty_name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="blood_group" ColumnName="blood_group" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Student_Status" ColumnName="Student_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_UpdateStaffDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_UpdateStaffDetailss">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_UpdateStaffDetailss_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_UpdateStudentsDetailss" FunctionName="CollegeMgntSystemModel.Store.USP_UpdateStudentsDetailss">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CollegeMgntSystemModel.USP_UpdateStudentsDetailss_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

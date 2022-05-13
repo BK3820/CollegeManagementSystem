@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CollegeMgntSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="login">
+    <Key>
+      <PropertyRef Name="login_id" />
+    </Key>
+    <Property Name="login_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="pass" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="staff_designations">
+    <Key>
+      <PropertyRef Name="designation_id" />
+    </Key>
+    <Property Name="designation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="staff_info">
+    <Key>
+      <PropertyRef Name="staff_id" />
+    </Key>
+    <Property Name="staff_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="join_date" Type="date" Nullable="false" />
+    <Property Name="designation" Type="int" />
+    <Property Name="first_name" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="middle_name" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="mobile_1" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="mobile_2" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="qualification" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="student_batches">
+    <Key>
+      <PropertyRef Name="batch_id" />
+    </Key>
+    <Property Name="batch_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="students_info">
+    <Key>
+      <PropertyRef Name="student_id" />
+    </Key>
+    <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="reg_no" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="date_of_birth" Type="date" Nullable="false" />
+    <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="faculty" Type="int" />
+    <Property Name="academic_status" Type="int" />
+    <Property Name="batch" Type="int" />
+    <Property Name="blood_group" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="student_status" Type="int" />
+  </EntityType>
+  <Association Name="FK__staff_inf__desig__0CBAE877">
+    <End Role="staff_designations" Type="Self.staff_designations" Multiplicity="0..1" />
+    <End Role="staff_info" Type="Self.staff_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff_designations">
+        <PropertyRef Name="designation_id" />
+      </Principal>
+      <Dependent Role="staff_info">
+        <PropertyRef Name="designation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__students___batch__1273C1CD">
+    <End Role="student_batches" Type="Self.student_batches" Multiplicity="0..1" />
+    <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="student_batches">
+        <PropertyRef Name="batch_id" />
+      </Principal>
+      <Dependent Role="students_info">
+        <PropertyRef Name="batch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__students___facul__117F9D94">
+    <End Role="staff_info" Type="Self.staff_info" Multiplicity="0..1" />
+    <End Role="students_info" Type="Self.students_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff_info">
+        <PropertyRef Name="staff_id" />
+      </Principal>
+      <Dependent Role="students_info">
+        <PropertyRef Name="faculty" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="USP_AddStaffDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="join_date" Type="date" Mode="In" />
+    <Parameter Name="designnation" Type="int" Mode="In" />
+    <Parameter Name="first_name" Type="varchar" Mode="In" />
+    <Parameter Name="middle_name" Type="varchar" Mode="In" />
+    <Parameter Name="last_name" Type="varchar" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+    <Parameter Name="mobile_1" Type="varchar" Mode="In" />
+    <Parameter Name="moible_2" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="qualification" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_AddStudentsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="reg_no" Type="varchar" Mode="In" />
+    <Parameter Name="first_name" Type="varchar" Mode="In" />
+    <Parameter Name="last_name" Type="varchar" Mode="In" />
+    <Parameter Name="date_of_birth" Type="date" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+    <Parameter Name="faculty" Type="int" Mode="In" />
+    <Parameter Name="academic_status" Type="int" Mode="In" />
+    <Parameter Name="batch" Type="int" Mode="In" />
+    <Parameter Name="blood_group" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="student_status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="USP_DeleteStaffDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="staff_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="USP_DeleteStudentsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="student_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="USP_GetStaffDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="USP_GetStudensDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="USP_UpdateStaffDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="staff_id" Type="int" Mode="In" />
+    <Parameter Name="join_date" Type="date" Mode="In" />
+    <Parameter Name="designnation" Type="int" Mode="In" />
+    <Parameter Name="first_name" Type="varchar" Mode="In" />
+    <Parameter Name="middle_name" Type="varchar" Mode="In" />
+    <Parameter Name="last_name" Type="varchar" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+    <Parameter Name="mobile_1" Type="varchar" Mode="In" />
+    <Parameter Name="moible_2" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="qualification" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_UpdateStudentsDetailss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="student_id" Type="int" Mode="In" />
+    <Parameter Name="reg_no" Type="varchar" Mode="In" />
+    <Parameter Name="first_name" Type="varchar" Mode="In" />
+    <Parameter Name="last_name" Type="varchar" Mode="In" />
+    <Parameter Name="date_of_birth" Type="date" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+    <Parameter Name="faculty" Type="int" Mode="In" />
+    <Parameter Name="academic_status" Type="int" Mode="In" />
+    <Parameter Name="batch" Type="int" Mode="In" />
+    <Parameter Name="blood_group" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="student_status" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="CollegeMgntSystemModelStoreContainer">
+    <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="staff_designations" EntityType="Self.staff_designations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="staff_info" EntityType="Self.staff_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="student_batches" EntityType="Self.student_batches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="students_info" EntityType="Self.students_info" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__staff_inf__desig__0CBAE877" Association="Self.FK__staff_inf__desig__0CBAE877">
+      <End Role="staff_designations" EntitySet="staff_designations" />
+      <End Role="staff_info" EntitySet="staff_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK__students___batch__1273C1CD" Association="Self.FK__students___batch__1273C1CD">
+      <End Role="student_batches" EntitySet="student_batches" />
+      <End Role="students_info" EntitySet="students_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK__students___facul__117F9D94" Association="Self.FK__students___facul__117F9D94">
+      <End Role="staff_info" EntitySet="staff_info" />
+      <End Role="students_info" EntitySet="students_info" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
